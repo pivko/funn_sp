@@ -249,7 +249,7 @@ namespace FUNN_SP {
                                     oFI.config = new FunnelbackConfig("funnelback.cfg");
                                     
                                     XmlSerializer ser = new XmlSerializer(typeof(FunnelbackItem));
-                                    XmlWriter tx = XmlWriter.Create(@"C:\Users\rpfmorg\output\testoutput.xml");
+                                    XmlWriter tx = XmlWriter.Create(@"C:\Users\rpfmorg\output\" + oFI.GetSafeFilename("xml"));
                                     ser.Serialize(tx, oFI);
                                     tx.Close();
                                 }

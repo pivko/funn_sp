@@ -47,6 +47,11 @@ namespace FUNN_SP_PROXIES
 		
 		#region Methods
 		
+		public string GetSafeFilename(string extension)
+		{
+			//TODO: This isn't actually very safe at the moment
+			return this.li.FieldValues["UniqueId"] + "." + extension;
+		}
 		
 		#endregion
 		
