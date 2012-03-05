@@ -59,8 +59,7 @@ namespace FUNN_SP_PROXIES
 				xwriter.WriteStartElement("fbitem");
 				foreach(string fieldkey in this.config.WantedFields)
 				{
-					xwriter.WriteElementString("fbname", fieldkey);
-					xwriter.WriteElementString("fbvalue", SafeFieldValue(fieldkey));
+					xwriter.WriteElementString(fieldkey, SafeFieldValue(fieldkey));
 				}				                           
 				xwriter.WriteEndElement();
 			}
