@@ -55,6 +55,7 @@
     <Compile Include="FUNN_SP_PROXIES\FunnelbackConfig.cs" />
     <Compile Include="FUNN_SP_PROXIES\FunnelbackItem.cs" />
     <Compile Include="FUNN_SP_PROXIES\FunnelbackList.cs" />
+    <Compile Include="FUNN_SP_PROXIES\FunnelbackWebRequest.cs" />
     <Compile Include="FUNN_SP_PROXIES\FunnelbackSite.cs" />
     <Compile Include="FUNN_SP_AUTH\MsOnlineClaimsHelper.cs" />
     <Compile Include="FUNN_SP_PROXIES\IFunnelback.cs" />
