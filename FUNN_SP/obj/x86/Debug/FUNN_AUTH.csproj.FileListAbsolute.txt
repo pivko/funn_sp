@@ -1,0 +1,15 @@
+C:\Documents and Settings\IETest\Desktop\sharepoint\SPFunnelback\SharePoint Test Scripts\C#\Wictor.Office365.ClaimsDemo\bin\Debug\FUNN_AUTH.exe.config
+C:\Documents and Settings\IETest\Desktop\sharepoint\SPFunnelback\SharePoint Test Scripts\C#\Wictor.Office365.ClaimsDemo\obj\x86\Debug\FUNN_AUTH.exe
+C:\Documents and Settings\IETest\Desktop\sharepoint\SPFunnelback\SharePoint Test Scripts\C#\Wictor.Office365.ClaimsDemo\obj\x86\Debug\FUNN_AUTH.pdb
+C:\Documents and Settings\IETest\Desktop\sharepoint\SPFunnelback\SharePoint Test Scripts\C#\FUNN_AUTH\bin\Debug\FUNN_AUTH.exe.config
+C:\Documents and Settings\IETest\Desktop\sharepoint\SPFunnelback\SharePoint Test Scripts\C#\FUNN_AUTH\obj\x86\Debug\FUNN_AUTH.exe
+C:\Documents and Settings\IETest\Desktop\sharepoint\SPFunnelback\SharePoint Test Scripts\C#\FUNN_AUTH\obj\x86\Debug\FUNN_AUTH.pdb
+C:\Documents and Settings\IETest\Desktop\sharepoint\SPFunnelback\SharePoint Test Scripts\C#\FUNN_AUTH\bin\Debug\FUNN_AUTH.exe
+C:\Documents and Settings\IETest\Desktop\sharepoint\SPFunnelback\SharePoint Test Scripts\C#\FUNN_AUTH\bin\Debug\FUNN_AUTH.pdb
+C:\Documents and Settings\IETest\Desktop\sharepoint\SPFunnelback\SharePoint Test Scripts\C#\FUNN_AUTH\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\IETest\Desktop\sharepoint\FUNN_AUTH\bin\Debug\FUNN_AUTH.exe.config
+C:\Documents and Settings\IETest\Desktop\sharepoint\FUNN_AUTH\obj\x86\Debug\FUNN_AUTH.exe
+C:\Documents and Settings\IETest\Desktop\sharepoint\FUNN_AUTH\obj\x86\Debug\FUNN_AUTH.pdb
+C:\Documents and Settings\IETest\Desktop\sharepoint\FUNN_AUTH\bin\Debug\FUNN_AUTH.exe
+C:\Documents and Settings\IETest\Desktop\sharepoint\FUNN_AUTH\bin\Debug\FUNN_AUTH.pdb
+C:\Documents and Settings\IETest\Desktop\sharepoint\FUNN_AUTH\obj\x86\Debug\ResolveAssemblyReference.cache

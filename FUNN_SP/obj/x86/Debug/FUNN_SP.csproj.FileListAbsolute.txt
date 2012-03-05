@@ -1,0 +1,9 @@
+C:\Documents and Settings\IETest\Desktop\sharepoint\FUNN_SP_AUTH\bin\Debug\FUNN_SP_AUTH.exe.config
+C:\Documents and Settings\IETest\Desktop\sharepoint\FUNN_SP_AUTH\obj\x86\Debug\FUNN_SP_AUTH.exe
+C:\Documents and Settings\IETest\Desktop\sharepoint\FUNN_SP_AUTH\obj\x86\Debug\FUNN_SP_AUTH.pdb
+C:\Documents and Settings\IETest\Desktop\sharepoint\FUNN_SP\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\IETest\Desktop\sharepoint\FUNN_SP\bin\Debug\FUNN_SP.exe.config
+C:\Documents and Settings\IETest\Desktop\sharepoint\FUNN_SP\bin\Debug\FUNN_SP.exe
+C:\Documents and Settings\IETest\Desktop\sharepoint\FUNN_SP\bin\Debug\FUNN_SP.pdb
+C:\Documents and Settings\IETest\Desktop\sharepoint\FUNN_SP\obj\x86\Debug\FUNN_SP.exe
+C:\Documents and Settings\IETest\Desktop\sharepoint\FUNN_SP\obj\x86\Debug\FUNN_SP.pdb
