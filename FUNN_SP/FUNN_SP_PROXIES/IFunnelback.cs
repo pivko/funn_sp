@@ -8,12 +8,12 @@
  */
 using System;
 
-namespace FUNN_SP.FUNN_SP_PROXIES
+namespace FUNN_SP_PROXIES
 {
 	/// <summary>
 	/// Description of Interface1.
 	/// </summary>
-	public interface IFunnelback
+	public interface IFunnelback<T>
 	{
 		void FunnelbackAdd();
 		void FunnelbackDelete();

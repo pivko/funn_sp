@@ -20,7 +20,7 @@ namespace FUNN_SP_PROXIES
 	/// <summary>
 	/// Description of Class1.
 	/// </summary>
-	public class FunnelbackItem : IXmlSerializable
+	public class FunnelbackItem : IXmlSerializable, IFunnelback<FunnelbackItem>
 	{
 		
 		#region Properties
@@ -80,6 +80,25 @@ namespace FUNN_SP_PROXIES
 			return (null);
 		}
 				
+		#endregion
+		
+		#region Funnelback Push
+		
+		public void FunnelbackAdd()
+		{
+			
+		}
+		
+		public void FunnelbackDelete()
+		{
+			
+		}
+		
+		public void FunnelbackCommit()
+		{
+			
+		}
+		
 		#endregion
 		
 		#region Utilities
