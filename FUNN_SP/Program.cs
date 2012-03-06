@@ -202,6 +202,15 @@ namespace FUNN_SP {
 
                 ctx.Load(ctx.Web);
                 ctx.ExecuteQuery();
+
+                //
+                //List all users
+                FunnelbackConfig config = new FunnelbackConfig("funnelback.cfg");
+                FunnelbackUser m = new FunnelbackUser(ctx,config);
+                m.ListUsers();
+                //End of users
+                
+
                 if (ctx != null)
                 {
                     using (StreamWriter writer = new StreamWriter(fbx.outputFolder + "\\first.xml"))
@@ -249,7 +258,7 @@ namespace FUNN_SP {
                                     oFI.config = new FunnelbackConfig("funnelback.cfg");
                                     
                                     XmlSerializer ser = new XmlSerializer(typeof(FunnelbackItem));
-                                    XmlWriter tx = XmlWriter.Create(@"C:\Users\rpfmorg\output\" + oFI.GetSafeFilename("xml"));
+                                    XmlWriter tx = XmlWriter.Create(fbx.outputFolder +  "\\" + oFI.GetSafeFilename("xml"));
                                     ser.Serialize(tx, oFI);
                                     tx.Close();
                                 }
