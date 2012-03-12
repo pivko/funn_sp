@@ -23,6 +23,7 @@ namespace FUNN_SP_PROXIES
 		#region Properties
 		public string outputFolder { get; set; }
         public string targetSite { get; set; }
+        public string url { get; set; }
         public string username { get; set; }
         public string password { get; set; }
         public string authMethod { get; set; }

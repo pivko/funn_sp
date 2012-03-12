@@ -7,9 +7,11 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.IO;
 using System.Net;
+using System.Text;
 
-namespace FUNN_SP.FUNN_SP_PROXIES
+namespace FUNN_SP_PROXIES
 {
 	/// <summary>
 	/// Description of FunnelbackWebRequest.
@@ -22,7 +24,7 @@ namespace FUNN_SP.FUNN_SP_PROXIES
 		#endregion
 		
 		#region Constructor
-		public FunnelbackWebRequest(FunnelbackXmlConfig config)
+		public FunnelbackWebRequest(FunnelbackConfig config)
 		{
 			this.config = config;
 		}
@@ -42,7 +44,7 @@ namespace FUNN_SP.FUNN_SP_PROXIES
 			dataStream.Write(byteArray, 0, byteArray.Length);
 			dataStream.Close();
 			
-			WebResponse = this.oWR.GetResponse();
+			WebResponse oWResp = this.oWR.GetResponse();
 			
 		}
 		#endregion

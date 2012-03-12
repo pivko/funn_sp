@@ -118,85 +118,16 @@ namespace FUNN_SP {
        
 
         static void Main(string[] args) {
-            //lets create config file for funnelback and read it first
-            Dictionary<string, string> fnb_config = new Dictionary<string, string>();
-            
-            try
-            { 
-                using (StreamReader sr = new StreamReader("funnelback.cfg"))
-                {
-                    String line;    
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                       // Console.WriteLine(line);
-                        //Dictionary<string, string> fnb_dictionary = new Dictionary<string, string>();
-                        string[] words = line.Split('=');
-                        fnb_config.Add(words[0],words[1]);
-                       // Console.WriteLine(words[0] + words[1]);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                // Let the user know what went wrong.
-                Console.WriteLine("The file could not be read:");
-                Console.WriteLine(e.Message);
-            }
-           // Console.WriteLine(fnb_config);
-
-            foreach (KeyValuePair<string, string> pair in fnb_config)
-            {
-                Console.WriteLine("{0}, {1}",
-                pair.Key,
-                pair.Value);
-            }
-
-            string[] wanted_fields = { "" };
-           // wanted_fields=new string[] {""};
-            if (fnb_config.ContainsKey("wanted_fields"))
-            {
-                string wanted_fields_string = fnb_config["wanted_fields"];
-                 wanted_fields = wanted_fields_string.Split(',');
-
-            }
-            string[] cdata_fields = { "" };
-            if (fnb_config.ContainsKey("cdata_fields"))
-            {
-                string cdata_fields_string = fnb_config["cdata_fields"];
-                wanted_fields = cdata_fields_string.Split(',');
-
-            }
-            string[] lookup_fields = { "" };
-            if (fnb_config.ContainsKey("lookup_fields"))
-            {
-                string lookup_fields_string = fnb_config["lookup_fields"];
-                wanted_fields = lookup_fields_string.Split(',');
-
-            }
-            
-            string target_site = fnb_config["target_site"];
-            string username = fnb_config["username"];
-            string password = fnb_config["password"];
-            string output_folder = fnb_config["output_folder"];
-            string auth_method = fnb_config["auth_method"];
- 
-            FunnelbackXmlConfig fbx = new FunnelbackXmlConfig();
-       
-            fbx.outputFolder = output_folder;
-            fbx.targetSite = target_site;
-            fbx.WantedFields = wanted_fields;
-            fbx.CDataFields = cdata_fields;
-            fbx.LookupFields = lookup_fields;
-               
-
+                
+ 		    FunnelbackConfig fbx = new FunnelbackConfig(@"C:\Users\rpfmorg\funnelback.cfg");
 
 
             //get all we need for claims authentication
 
-            MsOnlineClaimsHelper claimsHelper = new MsOnlineClaimsHelper(target_site,username,password);
+            MsOnlineClaimsHelper claimsHelper = new MsOnlineClaimsHelper(fbx.targetSite,fbx.username,fbx.password);
              
             //from now on we can use sharepoint being authenticated 
-            using (ClientContext ctx = new ClientContext(target_site))
+            using (ClientContext ctx = new ClientContext(fbx.targetSite))
             {
                 ctx.ExecutingWebRequest += claimsHelper.clientContext_ExecutingWebRequest;
 
@@ -208,7 +139,7 @@ namespace FUNN_SP {
                     {
                         Site oSite = ctx.Site;
                         WebCollection oWebs = oSite.RootWeb.Webs;
-                        FunnelbackXmlSite fbxs = new FunnelbackXmlSite();
+                        FunnelbackSite fbxs = new FunnelbackSite();
                         fbxs.ww = oSite.RootWeb;
                         fbxs.myfbx = fbx;
                         fbxs.Process();
@@ -240,11 +171,6 @@ namespace FUNN_SP {
                                 ctx.ExecuteQuery();
                                 foreach (ListItem oListItem in collListItem)
                                 {
-                                    FunnelbackXmlRecord oFXR = new FunnelbackXmlRecord();
-                                    oFXR.myfbx = fbx;
-                                    oFXR.li = oListItem;
-                                    oFXR.FunnelbackWriteXml();
-                                    
                                     FunnelbackItem oFI = new FunnelbackItem(oListItem);
                                     oFI.config = new FunnelbackConfig("funnelback.cfg");
                                     
