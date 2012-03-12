@@ -48,11 +48,15 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WinSCP">
+      <HintPath>..\..\..\..\..\Program Files\WinSCP\WinSCP.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FUNN_SP_AUTH\ClaimsWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="FUNN_SP_PROXIES\FunnelbackWinSCP.cs" />
     <Compile Include="FUNN_SP_PROXIES\FunnelbackConfig.cs" />
     <Compile Include="FUNN_SP_PROXIES\FunnelbackItem.cs" />
     <Compile Include="FUNN_SP_PROXIES\FunnelbackList.cs" />

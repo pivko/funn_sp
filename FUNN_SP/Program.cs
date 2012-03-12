@@ -16,11 +16,9 @@ namespace FUNN_SP {
 	
     class Program {
        
-
         static void Main(string[] args) {
                 
  		    FunnelbackConfig fbx = new FunnelbackConfig(@"C:\Users\rpfmorg\funnelback.cfg");
-
 
             //get all we need for claims authentication
 
@@ -72,7 +70,7 @@ namespace FUNN_SP {
                                 foreach (ListItem oListItem in collListItem)
                                 {
                                     FunnelbackItem oFI = new FunnelbackItem(oListItem);
-                                    oFI.config = new FunnelbackConfig("funnelback.cfg");
+                                    oFI.config = fbx;
                                     
                                     XmlSerializer ser = new XmlSerializer(typeof(FunnelbackItem));
                                     XmlWriter tx = XmlWriter.Create(@"C:\Users\rpfmorg\output\" + oFI.GetSafeFilename("xml"));
@@ -83,6 +81,8 @@ namespace FUNN_SP {
                             writer.WriteLine(@"</site>");
                         }
                         writer.WriteLine(@"</sharepoint>");
+                        FunnelbackWinSCP fbconnect = new FunnelbackWinSCP(fbx);
+                        fbconnect.Synchronize();
 
                     }
                 }

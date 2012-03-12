@@ -24,6 +24,10 @@ namespace FUNN_SP_PROXIES
 		public string outputFolder { get; set; }
         public string targetSite { get; set; }
         public string url { get; set; }
+        public string fbdomain { get; set; }
+        public string fbuser { get; set; }
+        public string fbpassword { get; set; }
+        public string fbfolder { get; set; }
         public string username { get; set; }
         public string password { get; set; }
         public string authMethod { get; set; }
@@ -92,9 +96,13 @@ namespace FUNN_SP_PROXIES
             }
             
             this.targetSite = fnb_config["target_site"];
+            this.fbdomain = fnb_config["fbdomain"];
+            this.fbuser = fnb_config["fbuser"];
+            this.fbpassword = fnb_config["fbpassword"];
             this.username = fnb_config["username"];
             this.password = fnb_config["password"];
             this.outputFolder = fnb_config["output_folder"];
+            this.fbfolder = fnb_config["fbfolder"];
             this.authMethod = fnb_config["auth_method"];
 		}
 		#endregion
