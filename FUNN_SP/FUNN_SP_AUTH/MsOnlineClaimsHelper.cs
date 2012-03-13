@@ -129,10 +129,13 @@ namespace FUNN_SP_AUTH {
                     Wctx = office365Login,
                     Wreply = _host.GetLeftPart(UriPartial.Authority) + "/_forms/default.aspx?wa=wsignin1.0"
                 };
+            	
+            	Console.WriteLine("Created the sp site\n");
 
                 //get token from STS
                 string stsResponse = getResponse(office365STS, sharepointSite.Wreply);
 
+                Console.WriteLine("Got the response\n");
                 // parse the token response
                 XDocument doc = XDocument.Parse(stsResponse);
 
@@ -147,7 +150,7 @@ namespace FUNN_SP_AUTH {
                               select result;
                 ret.Expires = Convert.ToDateTime(expires.First().Value);
 
-
+                Console.WriteLine("Just about to write the request\n");
                 HttpWebRequest request = createRequest(sharepointSite.Wreply);
                 byte[] data = Encoding.UTF8.GetBytes(crypt.FirstOrDefault().Value);
                 using (Stream stream = request.GetRequestStream()) {
@@ -158,7 +161,8 @@ namespace FUNN_SP_AUTH {
 
                         // Handle redirect, added may 2011 for P-subscriptions
                         if (webResponse.StatusCode == HttpStatusCode.MovedPermanently) {
-                            HttpWebRequest request2 = createRequest(webResponse.Headers["Location"]);
+                        	Console.WriteLine("Moved permanently!");
+                        	HttpWebRequest request2 = createRequest(webResponse.Headers["Location"]);
                             using (Stream stream2 = request2.GetRequestStream()) {
                                 stream2.Write(data, 0, data.Length);
                                 stream2.Close();
@@ -179,7 +183,9 @@ namespace FUNN_SP_AUTH {
                 }
             }
             catch (Exception) {
-                return null;
+            	Console.WriteLine("Exception while logging in!");
+            	Console.ReadLine();
+            	return null;
             }
             return ret;
         }

@@ -28,10 +28,17 @@ namespace FUNN_SP_PROXIES
 		public ListItem li { get; set; }
 		public StreamWriter writer { get; set; }
 		public FunnelbackConfig config { get; set; }
-				
+		public string LockString { get; set; }
+		
 		#endregion
 
 		#region Constructors
+		
+		public FunnelbackItem(ListItem li, string LockString)
+		{
+			this.li = li;
+			this.LockString = LockString;
+		}
 		
 		public FunnelbackItem(ListItem li)
 		{
@@ -65,7 +72,8 @@ namespace FUNN_SP_PROXIES
 				foreach(string fieldkey in this.config.WantedFields)
 				{
 					xwriter.WriteElementString(fieldkey, SafeFieldValue(fieldkey));
-				}				                           
+				}
+				xwriter.WriteElementString(@"LockString", this.LockString);
 				xwriter.WriteEndElement();
 			}
 		}

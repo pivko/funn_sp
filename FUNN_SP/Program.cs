@@ -41,6 +41,8 @@ namespace FUNN_SP {
                         fbxs.ww = oSite.RootWeb;
                         fbxs.myfbx = fbx;
                         fbxs.Process();
+                        string defaultlocker;
+                        defaultlocker = fbxs.GetLockString();
                         ctx.Load(oWebs);
                         ctx.ExecuteQuery();
                         writer.WriteLine(@"<?xml version='1.0'?>");
@@ -64,16 +66,18 @@ namespace FUNN_SP {
                                 ctx.Load(collListItem,
                                          items => items.IncludeWithDefaultProperties(
                                             item => item.DisplayName,
+                                            item => item.RoleAssignments,
                                             item => item.HasUniqueRoleAssignments
                                          ));
                                 ctx.ExecuteQuery();
                                 foreach (ListItem oListItem in collListItem)
                                 {
-                                    FunnelbackItem oFI = new FunnelbackItem(oListItem);
+                                    FunnelbackItem oFI = new FunnelbackItem(oListItem, defaultlocker);
                                     oFI.config = fbx;
                                     
                                     XmlSerializer ser = new XmlSerializer(typeof(FunnelbackItem));
                                     XmlWriter tx = XmlWriter.Create(@"C:\Users\rpfmorg\output\" + oFI.GetSafeFilename("xml"));
+                                    Console.WriteLine(fbxs.GetLockString());
                                     ser.Serialize(tx, oFI);
                                     tx.Close();
                                 }

@@ -46,7 +46,7 @@ namespace FUNN_SP_PROXIES
 				oSR = session.SynchronizeDirectories(
 					SynchronizationMode.Remote,
 					@"C:\Users\rpfmorg\output",
-					"/home/sharepoint/output", false);
+					"/opt/funnelback/custom_data/sharepoint-output", false);
 				oSR.Check();
 			}
 		}

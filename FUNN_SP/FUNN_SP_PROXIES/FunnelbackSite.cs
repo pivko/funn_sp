@@ -41,6 +41,34 @@ namespace FUNN_SP_PROXIES
                 }
             }
         }
+        
+        public string GetLockString()
+        {
+        	string lockstring = "";
+        	if (this.ww != null)
+        	{
+        		RoleAssignmentCollection oRac = this.ww.RoleAssignments;
+        		this.ww.Context.Load(oRac);
+        		this.ww.Context.ExecuteQuery();
+        		foreach (RoleAssignment oRa in oRac)
+        		{
+        			Principal oMem = oRa.Member;
+        			this.ww.Context.Load(oMem);
+        			this.ww.Context.ExecuteQuery();
+        			lockstring += oMem.Id.ToString();
+        			lockstring += "#";
+        			RoleDefinitionBindingCollection oRDBC = oRa.RoleDefinitionBindings;
+        			this.ww.Context.Load(oRDBC);
+        			this.ww.Context.ExecuteQuery();
+        			foreach (RoleDefinition oRd in oRDBC)
+        			{
+        				lockstring += oRd.Name;
+        				lockstring += "|";
+        			}
+        		}
+        	}
+        	return lockstring;
+        }
 
         public void FunnelbackWriteXml()
         {
