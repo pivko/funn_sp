@@ -20,9 +20,12 @@ namespace FUNN_SP_PROXIES
 	[XmlRoot("fbSite")]
 	public class FunnelbackSite
 	{
-		public FunnelbackConfig myfbx { get; set; }
+		#region Properties
+		public FunnelbackConfig config { get; set; }
         public Web ww { get; set; }
+        #endregion
 
+        #region Methods
         public void Process()
         {
             if (this.ww != null)
@@ -35,9 +38,21 @@ namespace FUNN_SP_PROXIES
                     Console.WriteLine("Site: {0}", sww.Title);
                     Console.ReadLine();
                     FunnelbackSite fbxs = new FunnelbackSite();
-                    fbxs.myfbx = this.myfbx;
+                    fbxs.config = this.config;
                     fbxs.ww = sww;
                     fbxs.Process();
+                    
+                    ListCollection collList = sww.Lists;
+                    sww.Context.Load(collList); // Query for Web
+                    sww.Context.ExecuteQuery(); // Execute
+
+                    foreach (List oList in collList)
+                    {
+                    	List oListy = collList.GetByTitle(oList.Title);
+                        FunnelbackList oFbl = new FunnelbackList(oListy, fbxs.GetLockString());
+                        oFbl.config = fbxs.config;
+                        oFbl.Process();
+                    }
                 }
             }
         }
@@ -70,6 +85,8 @@ namespace FUNN_SP_PROXIES
         	return lockstring;
         }
 
+        #endregion
+        
         public void FunnelbackWriteXml()
         {
 
