@@ -23,6 +23,7 @@ namespace FUNN_SP_PROXIES
 		#region Properties
 		public string outputFolder { get; set; }
         public string targetSite { get; set; }
+        public string urlstub { get; set; }
         public string url { get; set; }
         public string fbdomain { get; set; }
         public string fbuser { get; set; }
@@ -96,6 +97,7 @@ namespace FUNN_SP_PROXIES
             }
             
             this.targetSite = fnb_config["target_site"];
+            this.urlstub = fnb_config["urlstub"];
             this.fbdomain = fnb_config["fbdomain"];
             this.fbuser = fnb_config["fbuser"];
             this.fbpassword = fnb_config["fbpassword"];

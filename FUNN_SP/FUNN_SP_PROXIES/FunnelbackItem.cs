@@ -73,6 +73,7 @@ namespace FUNN_SP_PROXIES
 				{
 					xwriter.WriteElementString(fieldkey, SafeFieldValue(fieldkey));
 				}
+				xwriter.WriteElementString(@"url", this.GetSafeUrl("FileRef"));
 				xwriter.WriteElementString(@"LockString", this.LockString);
 				xwriter.WriteEndElement();
 			}
@@ -110,6 +111,16 @@ namespace FUNN_SP_PROXIES
 		#endregion
 		
 		#region Utilities
+		
+		public string GetSafeUrl(string key)
+		{
+			string oSafeUrl = "None";
+			if (this.li.FieldValues.Keys.Contains(key))
+			{
+				oSafeUrl = this.config.urlstub + this.li.FieldValues[key];
+			}
+			return oSafeUrl;
+		}
 		
 		public string SafeFieldValue(string key)
 		{

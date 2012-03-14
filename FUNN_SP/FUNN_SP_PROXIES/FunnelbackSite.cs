@@ -56,7 +56,7 @@ namespace FUNN_SP_PROXIES
         			this.ww.Context.Load(oMem);
         			this.ww.Context.ExecuteQuery();
         			lockstring += oMem.Id.ToString();
-        			lockstring += "#";
+        			lockstring += "LL";
         			RoleDefinitionBindingCollection oRDBC = oRa.RoleDefinitionBindings;
         			this.ww.Context.Load(oRDBC);
         			this.ww.Context.ExecuteQuery();
