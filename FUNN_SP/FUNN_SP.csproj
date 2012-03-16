@@ -56,6 +56,8 @@
     <Compile Include="FUNN_SP_AUTH\ClaimsWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="FUNN_SP_CRAWLER\FunnelbackCrawler.cs" />
+    <Compile Include="FUNN_SP_CRAWLER\FunnelbackQueue.cs" />
     <Compile Include="FUNN_SP_PROXIES\FunnelbackWinSCP.cs" />
     <Compile Include="FUNN_SP_PROXIES\FunnelbackConfig.cs" />
     <Compile Include="FUNN_SP_PROXIES\FunnelbackItem.cs" />
@@ -76,6 +78,9 @@
       <Project>{9FD79D3E-9F98-41C7-B8F8-A37359F2146A}</Project>
       <Name>FUNN_SP_PROXIES</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FUNN_SP_CRAWLER" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
