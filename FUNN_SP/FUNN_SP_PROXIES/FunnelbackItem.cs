@@ -71,10 +71,13 @@ namespace FUNN_SP_PROXIES
 				xwriter.WriteStartElement("fbitem");
 				foreach(string fieldkey in this.config.WantedFields)
 				{
+					Console.Write(fieldkey);
+					Console.Write(SafeFieldValue(fieldkey));
 					xwriter.WriteElementString(fieldkey, SafeFieldValue(fieldkey));
 				}
 				xwriter.WriteElementString(@"url", this.GetSafeUrl("FileRef"));
 				xwriter.WriteElementString(@"LockString", this.LockString);
+				xwriter.WriteElementString(@"Keys", string.Join(",", this.li.FieldValues.Keys));
 				xwriter.WriteEndElement();
 			}
 		}
@@ -125,7 +128,9 @@ namespace FUNN_SP_PROXIES
 		public string SafeFieldValue(string key)
 		{
 			string oSafeValueString = "None";
-			if (this.li.FieldValues.Keys.Contains(key))
+			try
+			{
+			if (this.li.FieldValues.ContainsKey(key))
 			{
 				if (this.config.WantedFields.Contains(key))
 				{
@@ -141,6 +146,8 @@ namespace FUNN_SP_PROXIES
 					oSafeValueString = oFLV.LookupValue;
 				}
 			}
+			}
+			catch (Exception e) {}
 			return oSafeValueString;		
 		}
 
