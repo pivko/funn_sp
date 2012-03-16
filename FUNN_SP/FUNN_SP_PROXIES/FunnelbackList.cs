@@ -47,6 +47,7 @@ namespace FUNN_SP_PROXIES
 		#endregion
 		
 		#region Methods
+		
 		public void Process()
 		{
 			CamlQuery camlQuery = new CamlQuery();

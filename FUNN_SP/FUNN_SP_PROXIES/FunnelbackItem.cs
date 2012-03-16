@@ -114,7 +114,7 @@ namespace FUNN_SP_PROXIES
 		#endregion
 		
 		#region Utilities
-		
+				
 		public string GetSafeUrl(string key)
 		{
 			string oSafeUrl = "None";

@@ -29,6 +29,7 @@ namespace FUNN_SP_PROXIES
         public string fbuser { get; set; }
         public string fbpassword { get; set; }
         public string fbfolder { get; set; }
+        public string[] WantedFileTypes { get; set; }
         public string username { get; set; }
         public string password { get; set; }
         public string authMethod { get; set; }
@@ -80,6 +81,12 @@ namespace FUNN_SP_PROXIES
                 string wanted_fields_string = fnb_config["wanted_fields"];
                 this.WantedFields = wanted_fields_string.Split(',');
 
+            }
+            string[] wanted_files = { "" };
+            if (fnb_config.ContainsKey("wanted_files"))
+            {
+            	string wanted_files_string = fnb_config["wanted_files"];
+            	this.WantedFileTypes = wanted_files_string.Split(',');
             }
             string[] cdata_fields = { "" };
             if (fnb_config.ContainsKey("cdata_fields"))

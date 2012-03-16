@@ -25,41 +25,61 @@ namespace FUNN_SP_CRAWLER
 	/// </summary>
 	public class FunnelbackCrawler
 	{
+		#region Properties
+		public ClientContext ctx { get; set; }
+		public FunnelbackConfig config { get; set; }
+		#endregion
+		
+		#region Constructors
+		public FunnelbackCrawler(ClientContext ctx, FunnelbackConfig config)
+		{
+			this.ctx = ctx;
+			this.config = config;
+		}
+		
+		public FunnelbackCrawler(String configpath)
+		{
+			this.config = new FunnelbackConfig(configpath);
+			this.ctx = GenerateClientContext();
+		}
+
 		public FunnelbackCrawler()
 		{
+			this.config = new FunnelbackConfig(@"C:\Users\rpfmorg\funnelback.cfg");
+			this.ctx = GenerateClientContext();
+		}
+		
+		public FunnelbackCrawler(FunnelbackConfig config)
+		{
+			this.config = config;
+			this.ctx = GenerateClientContext();
+		}
+		#endregion
+		
+		#region Methods
+		public ClientContext GenerateClientContext()
+		{
+			MsOnlineClaimsHelper claimsHelper = new MsOnlineClaimsHelper(config.targetSite,config.username,config.password);
+			ClientContext ctx = new ClientContext(config.targetSite);
+			ctx.ExecutingWebRequest += claimsHelper.clientContext_ExecutingWebRequest;
+			return ctx;
 		}
 		
 		public void Crawl()
 		{
-			FunnelbackConfig fbx = new FunnelbackConfig(@"C:\Users\rpfmorg\funnelback.cfg");
-
-            //get all we need for claims authentication
-
-            MsOnlineClaimsHelper claimsHelper = new MsOnlineClaimsHelper(fbx.targetSite,fbx.username,fbx.password);
-             
-            //from now on we can use sharepoint being authenticated 
-            using (ClientContext ctx = new ClientContext(fbx.targetSite))
+            if (this.ctx != null)
             {
-                ctx.ExecutingWebRequest += claimsHelper.clientContext_ExecutingWebRequest;
-
-                ctx.Load(ctx.Web);
-                ctx.ExecuteQuery();
-                if (ctx != null)
-                {
-                    Site oSite = ctx.Site;
-                    WebCollection oWebs = oSite.RootWeb.Webs;
-                    FunnelbackSite fbxs = new FunnelbackSite();
-                    fbxs.ww = oSite.RootWeb;
-                    fbxs.config = fbx;
-                    fbxs.Process();
-                    ctx.Load(oWebs);
-                    ctx.ExecuteQuery();
-                    fbxs.FunnelbackCommit();
-                }
-                
-
+                Site oSite = this.ctx.Site;
+                WebCollection oWebs = oSite.RootWeb.Webs;
+                FunnelbackSite fbxs = new FunnelbackSite();
+                fbxs.ww = oSite.RootWeb;
+                fbxs.config = this.config;
+                fbxs.Process();
+                this.ctx.Load(oWebs);
+                this.ctx.ExecuteQuery();
+                fbxs.FunnelbackCommit();
             }
-
 		}
+		#endregion
 	}
 }
