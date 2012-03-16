@@ -18,7 +18,7 @@ namespace FUNN_SP_PROXIES
 	/// Funnelback proxy for a Sharepoint Site
 	/// </summary>
 	[XmlRoot("fbSite")]
-	public class FunnelbackSite
+	public class FunnelbackSite : IFunnelback<FunnelbackSite>
 	{
 		#region Properties
 		public FunnelbackConfig config { get; set; }
@@ -87,9 +87,24 @@ namespace FUNN_SP_PROXIES
 
         #endregion
         
-        public void FunnelbackWriteXml()
+        #region Funnelback
+        
+        public void FunnelbackAdd()
         {
-
+        	
         }
+        
+        public void FunnelbackDelete()
+        {
+        	
+        }
+        
+        public void FunnelbackCommit()
+        {
+        	FunnelbackWinSCP fbconnect = new FunnelbackWinSCP(this.config);
+            fbconnect.Synchronize();
+        }
+        
+        #endregion
 	}
 }

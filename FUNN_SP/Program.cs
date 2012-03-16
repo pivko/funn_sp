@@ -33,21 +33,15 @@ namespace FUNN_SP {
                 ctx.ExecuteQuery();
                 if (ctx != null)
                 {
-                    using (StreamWriter writer = new StreamWriter(fbx.outputFolder + "\\first.xml"))
-                    {
-                        Site oSite = ctx.Site;
-                        WebCollection oWebs = oSite.RootWeb.Webs;
-                        FunnelbackSite fbxs = new FunnelbackSite();
-                        fbxs.ww = oSite.RootWeb;
-                        fbxs.config = fbx;
-                        fbxs.Process();
-                        string defaultlocker;
-                        defaultlocker = fbxs.GetLockString();
-                        ctx.Load(oWebs);
-                        ctx.ExecuteQuery();
-                        FunnelbackWinSCP fbconnect = new FunnelbackWinSCP(fbx);
-                        fbconnect.Synchronize();
-                    }
+                    Site oSite = ctx.Site;
+                    WebCollection oWebs = oSite.RootWeb.Webs;
+                    FunnelbackSite fbxs = new FunnelbackSite();
+                    fbxs.ww = oSite.RootWeb;
+                    fbxs.config = fbx;
+                    fbxs.Process();
+                    ctx.Load(oWebs);
+                    ctx.ExecuteQuery();
+                    fbxs.FunnelbackCommit();
                 }
                 
 
