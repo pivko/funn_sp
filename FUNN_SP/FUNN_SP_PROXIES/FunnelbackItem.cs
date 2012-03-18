@@ -9,6 +9,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Schema;
@@ -73,7 +74,9 @@ namespace FUNN_SP_PROXIES
 				{
 					Console.Write(fieldkey);
 					Console.Write(SafeFieldValue(fieldkey));
-					xwriter.WriteElementString(fieldkey, SafeFieldValue(fieldkey));
+					xwriter.WriteStartElement(fieldkey);
+					xwriter.WriteRaw(SafeFieldValue(fieldkey));
+					xwriter.WriteEndElement();
 				}
 				xwriter.WriteElementString(@"url", this.GetSafeUrl("FileRef"));
 				xwriter.WriteElementString(@"LockString", this.LockString);
@@ -138,7 +141,7 @@ namespace FUNN_SP_PROXIES
 				}
 				if (this.config.CDataFields.Contains(key))
 				{
-					oSafeValueString = @"<![CDATA[" + oSafeValueString + @"]]>";
+					oSafeValueString = @"<![CDATA[" + System.Net.WebUtility.HtmlDecode(oSafeValueString) + @"]]>";
 				}
 				if (this.config.LookupFields.Contains(key))
 				{
