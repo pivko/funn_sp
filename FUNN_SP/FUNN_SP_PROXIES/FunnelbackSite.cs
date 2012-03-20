@@ -11,6 +11,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Microsoft.SharePoint.Client;
+using FUNN_SP_CRAWLER;
 
 namespace FUNN_SP_PROXIES
 {
@@ -22,35 +23,42 @@ namespace FUNN_SP_PROXIES
 	{
 		#region Properties
 		public FunnelbackConfig config { get; set; }
-        public Web ww { get; set; }
+		public FunnelbackCrawler crawler { get; set; }
+		public Web ww { get; set; }
         #endregion
 
+        #region Constructors
+        public FunnelbackSite(Web ww, FunnelbackCrawler crawler)
+        {
+        	this.ww = ww;
+        	this.crawler = crawler;
+        	this.config = crawler.config;
+        }
+        #endregion
+        
         #region Methods
         public void Process()
         {
             if (this.ww != null)
             {
                 WebCollection oWebs = this.ww.Webs;
-                this.ww.Context.Load(oWebs);
-                this.ww.Context.ExecuteQuery();
+                this.crawler.ctx.Load(oWebs);
+                this.crawler.ctx.ExecuteQuery();
                 foreach (Web sww in oWebs)
                 {
                     Console.WriteLine("Site: {0}", sww.Title);
                     Console.ReadLine();
-                    FunnelbackSite fbxs = new FunnelbackSite();
-                    fbxs.config = this.config;
-                    fbxs.ww = sww;
+                    FunnelbackSite fbxs = new FunnelbackSite(sww, this.crawler);
                     fbxs.Process();
                     
                     ListCollection collList = sww.Lists;
-                    sww.Context.Load(collList); // Query for Web
-                    sww.Context.ExecuteQuery(); // Execute
+                    this.crawler.ctx.Load(collList); // Query for Web
+                    this.crawler.ctx.ExecuteQuery(); // Execute
 
                     foreach (List oList in collList)
                     {
                     	List oListy = collList.GetByTitle(oList.Title);
-                        FunnelbackList oFbl = new FunnelbackList(oListy, fbxs.GetLockString());
-                        oFbl.config = fbxs.config;
+                        FunnelbackList oFbl = new FunnelbackList(oListy, this.crawler, fbxs.GetLockString());
                         oFbl.Process();
                     }
                 }

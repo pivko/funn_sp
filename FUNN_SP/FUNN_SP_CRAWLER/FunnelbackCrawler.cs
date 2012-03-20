@@ -70,13 +70,8 @@ namespace FUNN_SP_CRAWLER
             if (this.ctx != null)
             {
                 Site oSite = this.ctx.Site;
-                WebCollection oWebs = oSite.RootWeb.Webs;
-                FunnelbackSite fbxs = new FunnelbackSite();
-                fbxs.ww = oSite.RootWeb;
-                fbxs.config = this.config;
+                FunnelbackSite fbxs = new FunnelbackSite(oSite.RootWeb, this);
                 fbxs.Process();
-                this.ctx.Load(oWebs);
-                this.ctx.ExecuteQuery();
                 fbxs.FunnelbackCommit();
             }
 		}

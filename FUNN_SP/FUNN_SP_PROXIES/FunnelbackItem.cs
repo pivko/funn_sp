@@ -15,6 +15,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 using Microsoft.SharePoint.Client;
+using FUNN_SP_CRAWLER;
 
 namespace FUNN_SP_PROXIES
 {
@@ -29,11 +30,20 @@ namespace FUNN_SP_PROXIES
 		public ListItem li { get; set; }
 		public StreamWriter writer { get; set; }
 		public FunnelbackConfig config { get; set; }
+		public FunnelbackCrawler crawler {get; set;}
 		public string LockString { get; set; }
 		
 		#endregion
 
 		#region Constructors
+		
+		public FunnelbackItem(ListItem li, FunnelbackCrawler crawler, string LockString)
+		{
+			this.li = li;
+			this.crawler = crawler;
+			this.config = crawler.config;
+			this.LockString = LockString;
+		}
 		
 		public FunnelbackItem(ListItem li, string LockString)
 		{
