@@ -16,6 +16,7 @@ using System.Xml.Schema;
 using System.Xml.Serialization;
 using Microsoft.SharePoint.Client;
 using FUNN_SP_CRAWLER;
+using FUNN_SP_AUTH;
 
 namespace FUNN_SP_PROXIES
 {
@@ -70,9 +71,47 @@ namespace FUNN_SP_PROXIES
 			//TODO: This isn't actually very safe at the moment
 			return this.li.FieldValues["UniqueId"] + "." + extension;
 		}
+
+		public void ProcessFile()
+		{
+			this.crawler.ctx.Load(this.li.File);
+			this.crawler.ctx.ExecuteQuery();
+			if (this.li.File.ServerObjectIsNull == false)
+			{
+				if (this.li.File.Name.EndsWith(".docx"))
+				{
+					Console.WriteLine("WORD exists called: {0} at {1} or {2}",
+				    	            this.li.File.Name,
+									this.li.FieldValues["FileRef"],
+								    this.li.File.ServerRelativeUrl);
+					ClaimsWebClient cwc = new ClaimsWebClient(new Uri(this.config.targetSite),this.config.username,this.config.password);
+					
+					Stream fs = ((ClaimsWebClient)cwc).OpenRead(
+						string.Format("{0}{1}", this.config.urlstub, this.li.File.ServerRelativeUrl));
+						
+					StreamWriter wr = new StreamWriter(this.config.outputFolder + @"\" + this.li.FieldValues["FileLeafRef"]);
+					using (StreamReader sr = new StreamReader(fs))
+					{
+						string line;
+						while ((line = sr.ReadLine()) != null)
+						{
+							wr.WriteLine(line);
+						}
+					}
+					wr.Close();
+					Console.WriteLine("Check " + this.config.outputFolder + @"\" + this.li.FieldValues["FileLeafRef"]);
+					Console.ReadLine();
+				}
+				
+			}
+			else
+			{
+				Console.WriteLine("This is NO FILE!");
+			}
+		}
 		
 		#endregion
-		
+				
 		#region Xml Serialization
 		
 		public void WriteXml(XmlWriter xwriter)
@@ -82,12 +121,13 @@ namespace FUNN_SP_PROXIES
 				xwriter.WriteStartElement("fbitem");
 				foreach(string fieldkey in this.config.WantedFields)
 				{
-					Console.Write(fieldkey);
-					Console.Write(SafeFieldValue(fieldkey));
+					Console.WriteLine(fieldkey);
+					Console.WriteLine(SafeFieldValue(fieldkey));
 					xwriter.WriteStartElement(fieldkey);
 					xwriter.WriteRaw(SafeFieldValue(fieldkey));
 					xwriter.WriteEndElement();
 				}
+				xwriter.WriteElementString(@"deftitle", this.li.FieldValues["FileLeafRef"].ToString());
 				xwriter.WriteElementString(@"url", this.GetSafeUrl("FileRef"));
 				xwriter.WriteElementString(@"LockString", this.LockString);
 				xwriter.WriteElementString(@"Keys", string.Join(",", this.li.FieldValues.Keys));

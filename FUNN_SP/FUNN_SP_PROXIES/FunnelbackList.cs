@@ -61,15 +61,15 @@ namespace FUNN_SP_PROXIES
 		public void Process()
 		{
 			CamlQuery camlQuery = new CamlQuery();
-			camlQuery.ViewXml = "<View><RowLimit>100</RowLimit></View>";
+			camlQuery.ViewXml = "<View><RowLimit>2000</RowLimit></View>";
             ListItemCollection collListItem = this.ll.GetItems(camlQuery);
-            this.ll.Context.Load(collListItem,
+            this.crawler.ctx.Load(collListItem,
                                  items => items.IncludeWithDefaultProperties(
                                             item => item.DisplayName,
                                             item => item.RoleAssignments,
                                             item => item.HasUniqueRoleAssignments
                                          ));
-            this.ll.Context.ExecuteQuery();
+            this.crawler.ctx.ExecuteQuery();
             foreach (ListItem oListItem in collListItem)
            	{
             	FunnelbackItem oFI = new FunnelbackItem(oListItem, this.crawler, this.LockString);
@@ -77,6 +77,7 @@ namespace FUNN_SP_PROXIES
                 XmlWriter tx = XmlWriter.Create(@"C:\Users\rpfmorg\output\" + oFI.GetSafeFilename("xml"));
                 ser.Serialize(tx, oFI);
                 tx.Close();
+                oFI.ProcessFile();
             }
 		}
 		#endregion

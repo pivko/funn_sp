@@ -41,7 +41,8 @@ namespace FUNN_SP_PROXIES
         {
             if (this.ww != null)
             {
-                WebCollection oWebs = this.ww.Webs;
+            	this.ProcessLists();
+            	WebCollection oWebs = this.ww.Webs;
                 this.crawler.ctx.Load(oWebs);
                 this.crawler.ctx.ExecuteQuery();
                 foreach (Web sww in oWebs)
@@ -49,20 +50,36 @@ namespace FUNN_SP_PROXIES
                     Console.WriteLine("Site: {0}", sww.Title);
                     Console.ReadLine();
                     FunnelbackSite fbxs = new FunnelbackSite(sww, this.crawler);
-                    fbxs.Process();
-                    
-                    ListCollection collList = sww.Lists;
-                    this.crawler.ctx.Load(collList); // Query for Web
-                    this.crawler.ctx.ExecuteQuery(); // Execute
-
-                    foreach (List oList in collList)
-                    {
-                    	List oListy = collList.GetByTitle(oList.Title);
-                        FunnelbackList oFbl = new FunnelbackList(oListy, this.crawler, fbxs.GetLockString());
-                        oFbl.Process();
-                    }
+                    fbxs.Process(); 
                 }
             }
+        }
+        
+        public void ProcessWebs()
+        {
+        	
+        }
+        
+        public void ProcessLists()
+        {
+        	ListCollection collList = this.ww.Lists;
+            this.crawler.ctx.Load(collList); // Query for Web
+            this.crawler.ctx.ExecuteQuery(); // Execute
+
+            foreach (List oList in collList)
+            {
+            	try
+            	{
+            		List oListy = collList.GetByTitle(oList.Title);
+                	FunnelbackList oFbl = new FunnelbackList(oListy, this.crawler, this.GetLockString());
+                	oFbl.Process();
+            	}
+            	catch (Exception e)
+            	{
+            		Console.WriteLine("An exception occurred: {0}", e);
+            		Console.ReadLine();
+            	}
+            }	
         }
         
         public string GetLockString()
