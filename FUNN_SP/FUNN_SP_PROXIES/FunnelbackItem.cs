@@ -80,27 +80,8 @@ namespace FUNN_SP_PROXIES
 			{
 				if (this.li.File.Name.EndsWith(".docx"))
 				{
-					Console.WriteLine("WORD exists called: {0} at {1} or {2}",
-				    	            this.li.File.Name,
-									this.li.FieldValues["FileRef"],
-								    this.li.File.ServerRelativeUrl);
-					ClaimsWebClient cwc = new ClaimsWebClient(new Uri(this.config.targetSite),this.config.username,this.config.password);
-					
-					Stream fs = ((ClaimsWebClient)cwc).OpenRead(
-						string.Format("{0}{1}", this.config.urlstub, this.li.File.ServerRelativeUrl));
-						
-					StreamWriter wr = new StreamWriter(this.config.outputFolder + @"\" + this.li.FieldValues["FileLeafRef"]);
-					using (StreamReader sr = new StreamReader(fs))
-					{
-						string line;
-						while ((line = sr.ReadLine()) != null)
-						{
-							wr.WriteLine(line);
-						}
-					}
-					wr.Close();
-					Console.WriteLine("Check " + this.config.outputFolder + @"\" + this.li.FieldValues["FileLeafRef"]);
-					Console.ReadLine();
+					FunnelbackBinaryDocument ofbd = new FunnelbackBinaryDocument(this.li.File, this.crawler);
+					ofbd.ProcessFile();
 				}
 				
 			}

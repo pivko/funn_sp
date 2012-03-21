@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="FUNN_SP_CRAWLER\FunnelbackCrawler.cs" />
     <Compile Include="FUNN_SP_CRAWLER\FunnelbackQueue.cs" />
+    <Compile Include="FUNN_SP_PROXIES\FunnelbackBinaryDocument.cs" />
     <Compile Include="FUNN_SP_PROXIES\FunnelbackWinSCP.cs" />
     <Compile Include="FUNN_SP_PROXIES\FunnelbackConfig.cs" />
     <Compile Include="FUNN_SP_PROXIES\FunnelbackItem.cs" />
